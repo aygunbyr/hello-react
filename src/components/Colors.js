@@ -4,7 +4,7 @@ function Colors() {
   const [colors, setColors] = useState(["Kırmızı", "Yeşil", "Mavi"]);
 
   const handleClick = () => {
-    setColors([...colors, "Gri"]);
+    setColors((prev) => [...prev, "Gri"]);
   };
 
   return (
