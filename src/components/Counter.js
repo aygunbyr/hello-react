@@ -1,8 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Counter() {
   const [count, setCount] = useState(0);
   const [amount, setAmount] = useState(1);
+
+  // useEffect(() => {
+  //   console.log("Bir state değişti.");
+  // });
+
+  // useEffect(() => {
+  //   console.log("Component mount edildi.");
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("Count state değişti.");
+  // }, [count]);
+
+  // useEffect(() => {
+  //   console.log("Count veya amount state değişti.");
+  // }, [count, amount]);
+
+  // useEffect(() => {
+  //   console.log("Amount state değişti");
+  // }, [amount]);
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      console.log("interval");
+      setCount((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>
