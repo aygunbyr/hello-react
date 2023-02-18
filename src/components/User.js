@@ -1,34 +1,23 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 
-function User({ title, data, friends }) {
+function User() {
+  const [user, setUser] = useState({ name: "Mehmet", surname: "Seven" });
   return (
     <div>
-      <strong>{title}</strong>
-      <div>İsim : {data.name}</div>
-      <div>Yaş : {data.age}</div>
-      <div>Şehir : {data.city}</div>
-      <h3>Arkadaşları</h3>
-      {friends.map((friend, i) => (
-        <div key={i}>{friend}</div>
-      ))}
-      <hr />
+      <h2>User</h2>
+      {user.name} {user.surname}
+      <br />
+      <br />
+      <div>
+        <button onClick={() => setUser({ ...user, name: "Ahmet" })}>
+          İsmi değiştir
+        </button>
+        <button onClick={() => setUser({ ...user, surname: "Test Soyisim" })}>
+          Soyismi değiştir
+        </button>
+      </div>
     </div>
   );
 }
-
-User.propTypes = {
-  title: PropTypes.string.isRequired,
-  data: PropTypes.exact({
-    name: PropTypes.string.isRequired,
-    age: PropTypes.number,
-    city: PropTypes.string,
-  }),
-  friends: PropTypes.array,
-};
-
-User.defaultProps = {
-  title: "Kişi",
-};
 
 export default User;
