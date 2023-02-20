@@ -3,23 +3,44 @@ import axios from "axios";
 
 function Users() {
   const [users, setUsers] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios("https://jsonplaceholder.typicode.com/users")
-      .then((res) => setUsers(res.data))
-      .finally(() => setLoading(false));
+    // axios("https://jsonplaceholder.typicode.com/users")
+    //   .then((res) => setUsers(res.data))
+    //   .finally(() => setLoading(false));
+    getData();
   }, []);
+
+  const getData = async () => {
+    const { data: users } = await axios(
+      "https://jsonplaceholder.typicode.com/users"
+    );
+    const { data: posts } = await axios(
+      `https://jsonplaceholder.typicode.com/posts?userId=${users[0].id}`
+    );
+
+    setLoading(false);
+    setUsers(users);
+    setPosts(posts);
+  };
 
   return (
     <div>
-      <ul>
-        <h2>Users</h2>
 
         {loading && <div>Yükleniyor...</div>}
-
-        {users.map((user, i) => (
-          <li key={i}>{user.name}</li>
+      
+        <h2>Users</h2>
+        <ul>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+      <h2>Posts</h2>
+        <ul>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
         ))}
       </ul>
     </div>
